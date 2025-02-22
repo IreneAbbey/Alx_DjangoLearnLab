@@ -2,8 +2,9 @@ from django.shortcuts import redirect, render
 from .models import Book
 from django.views.generic.detail import DetailView
 from .models import Library
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def list_books(request):
