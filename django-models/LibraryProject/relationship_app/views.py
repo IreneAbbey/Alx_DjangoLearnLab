@@ -7,6 +7,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import permission_required
+
 
 # Create your views here.
 def list_books(request):
@@ -71,3 +73,17 @@ def librarianView(request):
 @user_passes_test(is_member)
 def memberView(request):
     return render(request, "relationship_app/member_view.html")
+
+
+@permission_required("relationship_app.can_add_book")
+def add_book(request):
+    return render(request, "relationship_app/add_book.html")
+
+@permission_required("relationship_app.can_change_book")
+def edit_book(request, book_id):
+    return render(request, "relationship_app/edit_book.html")
+
+@permission_required("relationship_app.can_delete_book")
+def delete_book(request, book_id):
+    return render(request, "relationship_app/delete_book.html")
+
