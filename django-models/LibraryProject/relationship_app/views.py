@@ -61,13 +61,13 @@ def is_member(user):
 
 @user_passes_test(is_admin)
 def adminView(request):
-    return render(request, "relationship_app/admin.html")
+    return render(request, "relationship_app/admin_view.html")
 
 @user_passes_test(is_librarian)
 def librarianView(request):
-    return render(request, "relationship_app/librarian.html")
+    return render(request, "relationship_app/librarian_view.html")
    
 
 @user_passes_test(is_member)
 def memberView(request):
-    return render(request, "relationship_app/member.html")
+    return render(request, "relationship_app/member_view.html")
