@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import LoginView, LogoutView, list_books, LibraryDetailView, register  
+from .views import LoginView, LogoutView, LibraryDetailView
+from .views import list_books
 from LibraryProject.relationship_app import views
 
 urlpatterns = [
