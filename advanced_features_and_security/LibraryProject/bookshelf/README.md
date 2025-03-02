@@ -47,6 +47,16 @@ This project implements best practices for securing a Django application, protec
 
 ✅ **All security measures have been implemented successfully!**
 
+# Security Measures Implemented
+1. Enforced HTTPS redirects (SECURE_SSL_REDIRECT).
+2. Configured HSTS to prevent MITM attacks.
+3. Secured cookies to only transmit over HTTPS.
+4. Implemented HTTP security headers (X-Frame-Options, XSS filter).
+5. Deployed SSL certificates via Let's Encrypt.
+
+# Potential Areas for Improvement
+- Enable Content Security Policy (CSP) for additional XSS protection.
+- Regularly rotate TLS certificates.
 
 
 python manage.py migrate
