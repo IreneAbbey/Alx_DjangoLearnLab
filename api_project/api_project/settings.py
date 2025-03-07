@@ -44,11 +44,11 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # Allows open access
+        'rest_framework.permissions.IsAuthenticated',  # Restricts access to authenticated users only
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',  # Optional
+        'rest_framework.authentication.TokenAuthentication',  # Enables token authentication
     ],
 }
 
