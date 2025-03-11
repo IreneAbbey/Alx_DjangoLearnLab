@@ -20,7 +20,7 @@ class ListView(generics.ListAPIView):
     search_fields = ['title', 'author']
     ordering_fields = ['title', 'publication_year']
 
-class DetailView(generics.DetailAPIView):
+class DetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -41,7 +41,7 @@ class UpdateView(generics.UpdateAPIView):
     def perform_update(self, serializer):
         serializer.save(author=self.request.user)
 
-class DeleteView(generics.DeleteAPIView):
+class DeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
