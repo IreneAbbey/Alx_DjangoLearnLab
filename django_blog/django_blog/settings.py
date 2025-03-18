@@ -80,12 +80,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'blog',
         'USER': 'postgres',
-        'PASSWORD': 'mystrongpassword',
+        'PASSWORD': '2017',
         'HOST': 'localhost',  
-        'PORT': '8000',  
+        'PORT': '5432',  
     }
 }
 
+LOGIN_REDIRECT_URL = "profile"
+LOGOUT_REDIRECT_URL = "login"
 
 
 # Password validation
