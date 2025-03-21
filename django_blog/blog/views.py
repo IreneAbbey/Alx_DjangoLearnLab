@@ -81,19 +81,18 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         return self.request.user == post.author
     
-def add_comment(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.author = request.user
-            comment.post = post
-            comment.save()
-            return redirect(post.get_absolute_url())
-    else:
-        form = CommentForm()
-    return redirect(post.get_absolute_url())
+class CommentCreateView( LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/comment_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return super().get_success_url()
 
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment
