@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from.models import CustomUser
 from.serializers import RegisterSerializer
 from rest_framework.response import Response
@@ -9,6 +9,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate
 from .serializers import RegisterSerializer
+from django.shortcuts import get_object_or_404
+
+
 
 # Create your views here.
 class RegisterView(generics.CreateAPIView):
@@ -40,3 +43,20 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+    
+class FollowUserView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id):
+        user_to_follow = get_object_or_404(CustomUser, user_id)
+        request.user.following.add(user_to_follow)
+        return Response(status=status.HTTP_200_OK)
+
+
+class UnfollowUserView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id):
+        user_to_unfollow = get_object_or_404(CustomUser, user_id)
+        request.user.following.remove(user_to_unfollow)
+        return Response(status=status.HTTP_200_OK)

@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
+
 
 User = get_user_model()
 
@@ -31,3 +33,7 @@ class UserLoginSerializer(serializers.Serializer):
             token, created = Token.objects.get_or_create(user=user)
             return {'token': token.key}
         raise serializers.ValidationError("Invalid credentials")
+
+class UserSerializer(serializers.ModelSerializer):
+    followers_count = serializers.IntegerField(source= 'followers.count', read_only=True)
+    following_count = serializers.IntegerField(source= 'following.count', read_only=True)
