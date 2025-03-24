@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate
-from .serializers import UserSerializer
+from .serializers import RegisterSerializer
 
 # Create your views here.
 class RegisterView(generics.CreateAPIView):
@@ -36,7 +36,7 @@ def login_view(request):
 
 class ProfileView(generics.RetrieveUpdateAPIView):
     queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = RegisterSerializer
 
     def get_object(self):
         return self.request.user
