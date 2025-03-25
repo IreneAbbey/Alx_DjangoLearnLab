@@ -24,3 +24,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.author} - {self.title}"
+    
+class Like(models.Model):
+    post = models.ForeignKey('posts.Post', on_delete=models.CASCADE)
+    user = models.ForeignKey('accounts.CustomUser', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('post', 'user',)
+
+    def __str__(self):
+        return f"{self.user} - {self.post}"
