@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from.models import Like, Post, Comment
 from.serializers import PostSerializer, CommentSerializer
@@ -47,7 +47,7 @@ class LikePostView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
         like, created = Like.objects.get_or_create(user= request.user, post = post)
         if created:
             Notification.objects.create(recipients=post.author, actor = request.user, verb="liked your post",  target = post)
