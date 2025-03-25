@@ -7,6 +7,8 @@ from.models import Comment
 from.serializers import CommentSerializer
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import filters
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class PostPagination(PageNumberPagination):
@@ -33,3 +35,11 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+class UserFeedView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        following_users = self.request.user.following.all()
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
