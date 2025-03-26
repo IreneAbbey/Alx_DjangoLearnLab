@@ -87,10 +87,15 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'alx',
+        'USER': 'postgres',
+        'PASSWORD': 'mystrongpassword',
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
+
 
 
 # Password validation
